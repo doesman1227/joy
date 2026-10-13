@@ -28,7 +28,8 @@
   .half > h2{display:flex;align-items:baseline;gap:12px;font:600 1.6rem/1.4 "Noto Serif JP",serif;margin:0 0 4px}
   .half > h2 small{font:700 .7rem/1 "Noto Sans JP",sans-serif;letter-spacing:.22em;color:var(--c)}
   .half > p{color:var(--faint);font-size:.84rem;margin:0 0 18px}
-  .future{--c:var(--accent)} .past{--c:var(--past)}
+  .future{--c:var(--accent)} .past{--c:var(--past)} .now{--c:var(--accent)}
+  .now .item{border-left:3px solid var(--accent)}
 
   .kind{margin:22px 0 0}
   .kind h3{font:600 1.05rem/1.5 "Noto Serif JP",serif;margin:0 0 10px;padding-left:12px;border-left:3px solid var(--c)}
@@ -58,6 +59,12 @@
     <p class="lead">心地よい暮らしを整えることと、自然や新しい場所で感動すること。その両方を望んでいる。欲しいもの、やりたいこと、行きたい場所、そして、やったこと、行ったところ、楽しかったことを、思いついたものから素直に並べていきます。叶ったものは「これから」から「これまで」へ。</p>
   </header>
 
+  <section class="half now" id="now">
+    <h2>いま<small>NOW</small></h2>
+    <p>やりたいことの中から、いま取り組んでいること。全部を一度にではなく、一つずつ。</p>
+    <div data-group="now"></div>
+  </section>
+
   <section class="half future" id="future">
     <h2>これから<small>WISHES</small></h2>
     <p>やってみたいこと、手に入れたいもの、行ってみたい場所。</p>
@@ -81,21 +88,22 @@
 <script>
 // items.json の中身を、これから / これまで の各欄に並べる
 const KINDS = {
+  now:    [["", ""]],
   future: [["want","欲しいもの"],["do","やりたいこと"],["go","行きたい場所"]],
   past:   [["did","やったこと"],["went","行ったところ"],["fun","楽しかったこと"]]
 };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // リンクは同じサイト内(http/https)のものだけを出す
-const safeUrl = u => { try { const url = new URL(String(u ?? ""), location.href); return (url.protocol === "http:" || url.protocol === "https:") && url.origin === location.origin ? url.href : null; } catch { return null; } };
+const safeUrl = u => { if (!u) return null; try { const url = new URL(String(u ?? ""), location.href); return (url.protocol === "http:" || url.protocol === "https:") && url.origin === location.origin ? url.href : null; } catch { return null; } };
 function render(data){
   for (const [group, kinds] of Object.entries(KINDS)) {
     const box = document.querySelector(`[data-group="${group}"]`);
     box.innerHTML = kinds.map(([key, label]) => {
-      const list = (data[group] && data[group][key]) || [];
+      const list = (key === "" ? data[group] : (data[group] && data[group][key])) || [];
       const items = list.length
-        ? `<ul class="items">${list.map(it => `<li class="item"><b>${it.date ? `<span class="date">${esc(it.date)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${safeUrl(it.source) ? `<a class="src" href="${esc(safeUrl(it.source))}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
-        : `<p class="empty">まだありません。思いついたら足していく。</p>`;
-      return `<div class="kind"><h3>${label}</h3>${items}</div>`;
+        ? `<ul class="items">${list.map(it => `<li class="item"><b>${(it.date || it.period) ? `<span class="date">${esc(it.date || it.period)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${safeUrl(it.source) ? `<a class="src" href="${esc(safeUrl(it.source))}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
+        : `<p class="empty">${group === "now" ? "いまは、これから選ぶところ。" : "まだありません。思いついたら足していく。"}</p>`;
+      return label ? `<div class="kind"><h3>${label}</h3>${items}</div>` : `<div class="kind">${items}</div>`;
     }).join("");
   }
 }
