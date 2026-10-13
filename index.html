@@ -85,13 +85,15 @@ const KINDS = {
   past:   [["did","やったこと"],["went","行ったところ"],["fun","楽しかったこと"]]
 };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// リンクは同じサイト内(http/https)のものだけを出す
+const safeUrl = u => { try { const url = new URL(String(u ?? ""), location.href); return (url.protocol === "http:" || url.protocol === "https:") && url.origin === location.origin ? url.href : null; } catch { return null; } };
 function render(data){
   for (const [group, kinds] of Object.entries(KINDS)) {
     const box = document.querySelector(`[data-group="${group}"]`);
     box.innerHTML = kinds.map(([key, label]) => {
       const list = (data[group] && data[group][key]) || [];
       const items = list.length
-        ? `<ul class="items">${list.map(it => `<li class="item"><b>${it.date ? `<span class="date">${esc(it.date)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${it.source ? `<a class="src" href="${esc(it.source)}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
+        ? `<ul class="items">${list.map(it => `<li class="item"><b>${it.date ? `<span class="date">${esc(it.date)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${safeUrl(it.source) ? `<a class="src" href="${esc(safeUrl(it.source))}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
         : `<p class="empty">まだありません。思いついたら足していく。</p>`;
       return `<div class="kind"><h3>${label}</h3>${items}</div>`;
     }).join("");
