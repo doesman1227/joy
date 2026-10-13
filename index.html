@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>楽しみ｜まとめノート</title>
+<meta name="description" content="これからやりたいことと、これまで楽しかったこと。欲しいもの、やりたいこと、行きたい場所と、やったこと、行ったところ、楽しかったことを並べていく個人的なノート。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fbf8f3;--surface:#fff;--ink:#2a2622;--muted:#6f675e;--faint:#a39a8f;--line:#e8e0d4;--accent:#c0703f;--past:#5f8a74;--wash:#f4ece2}
+  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151311;--surface:#1d1a17;--ink:#eee8e0;--muted:#aaa196;--faint:#6d665e;--line:#2e2924;--accent:#e2955f;--past:#8fbfa5;--wash:#221d18}}
+  :root[data-theme="dark"]{--bg:#151311;--surface:#1d1a17;--ink:#eee8e0;--muted:#aaa196;--faint:#6d665e;--line:#2e2924;--accent:#e2955f;--past:#8fbfa5;--wash:#221d18}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.9 "Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:46rem;margin:auto;padding:0 16px} @media(min-width:640px){.wrap{padding:0 24px}}
+  a{color:inherit}
+  .top{padding-top:24px}
+  .back{font-size:.75rem;color:var(--muted);text-decoration:none}.back:hover{color:var(--ink)}
+  header{padding:68px 0 36px}
+  .kicker{margin:0 0 16px;font-size:.7rem;letter-spacing:.24em;color:var(--accent);font-weight:700}
+  h1{font:600 clamp(2rem,5.6vw,3rem)/1.45 "Noto Serif JP",serif;margin:0 0 6px;letter-spacing:.04em}
+  .mn-tagline{font-family:"Noto Serif JP",serif;font-weight:500;font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.75;margin:.1em 0 1.1em;opacity:.85}
+  .lead{margin:0;color:var(--muted);max-width:34em}
+
+  .half{padding:40px 0 8px;border-top:1px solid var(--line)}
+  .half > h2{display:flex;align-items:baseline;gap:12px;font:600 1.6rem/1.4 "Noto Serif JP",serif;margin:0 0 4px}
+  .half > h2 small{font:700 .7rem/1 "Noto Sans JP",sans-serif;letter-spacing:.22em;color:var(--c)}
+  .half > p{color:var(--faint);font-size:.84rem;margin:0 0 18px}
+  .future{--c:var(--accent)} .past{--c:var(--past)}
+
+  .kind{margin:22px 0 0}
+  .kind h3{font:600 1.05rem/1.5 "Noto Serif JP",serif;margin:0 0 10px;padding-left:12px;border-left:3px solid var(--c)}
+  .items{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .item{padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+  .item b{display:block;font-family:"Noto Serif JP",serif;font-weight:600;font-size:1.02rem}
+  .item .date{font-size:.72rem;letter-spacing:.08em;color:var(--c);margin-right:8px}
+  .item p{margin:4px 0 0;color:var(--muted);font-size:.9rem;line-height:1.8}
+  .item a.src{display:inline-block;margin-top:6px;font-size:.76rem;color:var(--faint);text-decoration:none}
+  .item a.src:hover{color:var(--c)}
+  .empty{color:var(--faint);font-size:.88rem;padding:6px 2px}
+
+  .how{margin:44px 0 0;padding:20px 22px;background:var(--wash);border-radius:6px;font-size:.92rem;color:var(--muted)}
+  .how b{color:var(--ink)}
+  footer{padding:40px 0 60px;color:var(--faint);font-size:.76rem}
+  footer .related{color:var(--muted);font-size:.86rem;margin-bottom:16px}
+  footer .related a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top"><a class="back" href="../">← m-note トップ</a></div>
+  <header>
+    <p class="kicker">JOY</p>
+    <h1>楽しみ</h1>
+    <p class="mn-tagline">これからやりたいことと、これまで楽しかったこと。</p>
+    <p class="lead">欲しいもの、やりたいこと、行きたい場所。そして、やったこと、行ったところ、楽しかったこと。やりたいことに素直になるために、思いついたものから並べていきます。叶ったものは「これから」から「これまで」へ。</p>
+  </header>
+
+  <section class="half future" id="future">
+    <h2>これから<small>WISHES</small></h2>
+    <p>やってみたいこと、手に入れたいもの、行ってみたい場所。</p>
+    <div data-group="future"></div>
+  </section>
+
+  <section class="half past" id="past">
+    <h2>これまで<small>MEMORIES</small></h2>
+    <p>やったこと、行ったところ、心が動いたこと。</p>
+    <div data-group="past"></div>
+  </section>
+
+  <div class="how"><b>このページの育て方</b> — 思いついたら「これから」に足し、叶ったら日付とひとことを添えて「これまで」へ移す。読み返して違和感があれば、言葉を直していく。</div>
+
+  <footer>
+    <p class="related">あわせて読む：<a href="../way-of-life/">生き方</a> ・ <a href="../health-habits/">健康と習慣</a> ・ <a href="../musings/">日々のつぶやき</a></p>
+    <p>専門家ではない個人が、自分のために書きとめている個人的なノートです。</p>
+    <p><a class="back" href="../">← m-note トップ</a></p>
+  </footer>
+</main>
+<script>
+// items.json の中身を、これから / これまで の各欄に並べる
+const KINDS = {
+  future: [["want","欲しいもの"],["do","やりたいこと"],["go","行きたい場所"]],
+  past:   [["did","やったこと"],["went","行ったところ"],["fun","楽しかったこと"]]
+};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(data){
+  for (const [group, kinds] of Object.entries(KINDS)) {
+    const box = document.querySelector(`[data-group="${group}"]`);
+    box.innerHTML = kinds.map(([key, label]) => {
+      const list = (data[group] && data[group][key]) || [];
+      const items = list.length
+        ? `<ul class="items">${list.map(it => `<li class="item"><b>${it.date ? `<span class="date">${esc(it.date)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${it.source ? `<a class="src" href="${esc(it.source)}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
+        : `<p class="empty">まだありません。思いついたら足していく。</p>`;
+      return `<div class="kind"><h3>${label}</h3>${items}</div>`;
+    }).join("");
+  }
+}
+fetch("items.json").then(r => r.json()).then(render).catch(() => render({}));
+</script>
+</body>
+</html>
