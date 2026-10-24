@@ -47,6 +47,15 @@
   footer{padding:40px 0 60px;color:var(--faint);font-size:.76rem}
   footer .related{color:var(--muted);font-size:.86rem;margin-bottom:16px}
   footer .related a{color:var(--accent)}
+
+  .childnotes{border-top:1px solid var(--line,rgba(0,0,0,.12));margin-top:10px}
+  .childnotes a{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:baseline;
+    padding:20px 4px;border-bottom:1px solid var(--line,rgba(0,0,0,.12));text-decoration:none}
+  .childnotes .idx{font-family:"Noto Serif JP",serif;opacity:.45;font-size:.9rem}
+  .childnotes .cat{display:block;font-size:.66rem;letter-spacing:.2em;opacity:.5}
+  .childnotes .ttl{display:block;font-family:"Noto Serif JP",serif;font-weight:600;font-size:1.12rem}
+  .childnotes .desc{display:block;font-size:.88rem;opacity:.72;line-height:1.8;margin-top:4px}
+  .childnotes .arrow{opacity:.4}
 </style>
 </head>
 <body>
@@ -79,8 +88,25 @@
 
   <div class="how"><b>このページの育て方</b> — 思いついたら「これから」に足し、叶ったら日付とひとことを添えて「これまで」へ移す。全部を一度にではなく、一つずつ。読み返して違和感があれば、言葉を直していく。</div>
 
+  <section id="notes">
+    <h2>この中のノート<small>NOTES</small></h2>
+    <p>叶えたいことのうち、二つは独立したノートになっています。</p>
+    <nav class="childnotes">
+      <a href="../travel/">
+        <span class="idx">01</span>
+        <span><span class="cat">TRAVEL</span><span class="ttl">旅</span><span class="desc">危険ではなく、未知に触れに行く。非日常の段階、旅で触れたいもの、行きたい場所と行ったところ。</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="../way-of-creating/">
+        <span class="idx">02</span>
+        <span><span class="cat">WAY OF CREATING</span><span class="ttl">創り方</span><span class="desc">答えではなく、問いを残すものを。惹かれるもの、アイデアの生まれ方、創りたいもの。</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </nav>
+  </section>
+
   <footer>
-    <p class="related">あわせて読む：<a href="../way-of-life/">生き方</a> ・ <a href="../way-of-creating/">創り方</a> ・ <a href="../travel/">旅</a> ・ <a href="../food/">食</a> ・ <a href="../health-habits/">健康と習慣</a> ・ <a href="../musings/">日々のつぶやき</a></p>
+    <p class="related">あわせて読む：<a href="../way-of-life/">生き方</a> ・ <a href="../way-of-creating/">創り方</a> ・ <a href="../travel/">旅</a> ・ <a href="../food/">食べる</a> ・ <a href="../health-habits/">健康</a> ・ <a href="../musings/">日々のつぶやき</a></p>
     <p>専門家ではない個人が、自分のために書きとめている個人的なノートです。</p>
     <p><a class="back" href="../">← m-note トップ</a></p>
   </footer>
