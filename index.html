@@ -145,11 +145,13 @@ function adapt(items){
   };
   // 対応表に無い組は描かれない。黙って消えないよう、落とした分を console に出す(見た目は変えない)。
   const shown = new Set([...out.now, ...Object.values(out.future).flat(), ...Object.values(out.past).flat()]);
-  const dropped = items.filter(it => !shown.has(it));
+  // このページが受け持つ kind。これ以外(柱・問い・原則など)は正当に対象外なので数えない。
+  const MINE = ["欲しい", "やりたい", "行きたい", "やったこと", "行ったところ", "楽しかったこと"];
+  const dropped = items.filter(it => MINE.indexOf(it.kind) !== -1 && !shown.has(it));
   const seenPairs = Object.create(null);
   dropped.forEach(it => { const k = it.kind + " / " + (it.state || "(state なし)"); seenPairs[k] = (seenPairs[k] || 0) + 1; });
   if (dropped.length && typeof console !== "undefined") {
-    console.warn("joy: 対応表に無い項目を表示していません(" + dropped.length + "件)", seenPairs);
+    console.warn("joy: 受け持ちの項目を表示できていません(" + dropped.length + "件)", seenPairs);
   }
   return out;
 }
