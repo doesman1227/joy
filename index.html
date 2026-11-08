@@ -111,8 +111,9 @@
     <p><a class="back" href="../">← m-note トップ</a></p>
   </footer>
 </main>
+<script src="../self.js"></script>
 <script>
-// items.json の中身を、これから / これまで の各欄に並べる
+// self.json の中身を、これから / これまで の各欄に並べる
 const KINDS = {
   now:    [["", ""]],
   future: [["want","欲しいもの"],["do","やりたいこと"],["go","行きたい場所"]],
@@ -133,7 +134,31 @@ function render(data){
     }).join("");
   }
 }
-fetch("items.json").then(r => r.json()).then(render).catch(() => render({}));
+// self.json(平らな配列)を、render() が期待する入れ子の形に組み直す。
+// render() 側は一切変えない。date は now の period も兼ねる(移すときに date へ入れている)。
+function adapt(items){
+  const pick = (kind, state) => items.filter(it => it.kind === kind && it.state === state);
+  return {
+    now: items.filter(it => it.state === "いま"),
+    future: { want: pick("欲しい", "これから"), do: pick("やりたい", "これから"), go: pick("行きたい", "これから") },
+    past:   { did: pick("やったこと", "これまで"), went: pick("行ったところ", "これまで"), fun: pick("楽しかったこと", "これまで") }
+  };
+}
+
+function fail(msg){
+  document.querySelectorAll("[data-group]").forEach(box => {
+    box.innerHTML = `<p class="empty">読み込めませんでした（${esc(msg)}）</p>`;
+  });
+}
+
+fetch("../self.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(d => {
+    const errors = Self.validateSelf(d.items);
+    if (errors.length) { fail(errors[0]); return; }   // 黙って描かない
+    render(adapt(d.items));
+  })
+  .catch(e => fail(e.message));
 </script>
 </body>
 </html>
