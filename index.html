@@ -138,11 +138,20 @@ function render(data){
 // render() 側は一切変えない。date は now の period も兼ねる(移すときに date へ入れている)。
 function adapt(items){
   const pick = (kind, state) => items.filter(it => it.kind === kind && it.state === state);
-  return {
+  const out = {
     now: items.filter(it => it.state === "いま"),
     future: { want: pick("欲しい", "これから"), do: pick("やりたい", "これから"), go: pick("行きたい", "これから") },
     past:   { did: pick("やったこと", "これまで"), went: pick("行ったところ", "これまで"), fun: pick("楽しかったこと", "これまで") }
   };
+  // 対応表に無い組は描かれない。黙って消えないよう、落とした分を console に出す(見た目は変えない)。
+  const shown = new Set([...out.now, ...Object.values(out.future).flat(), ...Object.values(out.past).flat()]);
+  const dropped = items.filter(it => !shown.has(it));
+  const seenPairs = Object.create(null);
+  dropped.forEach(it => { const k = it.kind + " / " + (it.state || "(state なし)"); seenPairs[k] = (seenPairs[k] || 0) + 1; });
+  if (dropped.length && typeof console !== "undefined") {
+    console.warn("joy: 対応表に無い項目を表示していません(" + dropped.length + "件)", seenPairs);
+  }
+  return out;
 }
 
 function fail(msg){
