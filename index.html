@@ -65,7 +65,7 @@
     <p class="kicker">WHAT'S AHEAD</p>
     <h1>これから</h1>
     <p class="mn-tagline">これからやりたいことと、これまで楽しかったこと。</p>
-    <p class="lead">心地よい暮らしを整えることと、自然や新しい場所で感動すること。その両方を望んでいる。欲しいもの、やりたいこと、行きたい場所、そして、やったこと、行ったところ、楽しかったことを、思いついたものから素直に並べていきます。叶ったものは「これから」から「これまで」へ。</p>
+    <p class="lead">心地よい暮らしを整えることと、自然や新しい場所で感動すること。その両方を望んでいる。欲しいもの、やりたいこと、行きたい場所、そして、やったこと、行ったところを、<a href="../life-hacks/">経験・体験</a>・<a href="../travel/">場所・旅行</a>・<a href="../favorites/">モノ</a> の三つから集めて、ここに横断で並べています。叶ったものは「これから」から「これまで」へ。</p>
   </header>
 
   <section class="half now" id="now">
@@ -82,7 +82,7 @@
 
   <section class="half past" id="past">
     <h2>これまで<small>MEMORIES</small></h2>
-    <p>やったこと、行ったところ、心が動いたこと。</p>
+    <p>やったこと、行ったところ。気に入ったものは、それぞれのセクションの<a href="../life-hacks/picks.html">やって良かったこと</a>・<a href="../travel/picks.html">また行きたいところ</a>・<a href="../favorites/picks.html">お気に入りのもの</a> にあります。</p>
     <div data-group="past"></div>
   </section>
 
@@ -92,9 +92,9 @@
     <h2>この中のノート<small>NOTES</small></h2>
     <p>叶えたいことのうち、二つは独立したノートになっています。</p>
     <nav class="childnotes">
-      <a href="../travel/">
+      <a href="../travel/note.html">
         <span class="idx">01</span>
-        <span><span class="cat">TRAVEL</span><span class="ttl">旅</span><span class="desc">危険ではなく、未知に触れに行く。非日常の段階、旅で触れたいもの、行きたい場所と行ったところ。</span></span>
+        <span><span class="cat">TRAVEL</span><span class="ttl">旅のノート</span><span class="desc">危険ではなく、未知に触れに行く。非日常の段階、旅で触れたいもの、旅を支えるしくみ。</span></span>
         <span class="arrow">→</span>
       </a>
       <a href="../way-of-creating/">
@@ -111,13 +111,19 @@
     <p><a class="back" href="../">← m-note トップ</a></p>
   </footer>
 </main>
-<script src="../self.js"></script>
 <script>
-// self.json の中身を、これから / これまで の各欄に並べる
+// 経験・体験／場所・旅行／モノの三つの items.json を読んで、これから／これまで に並べる。
+// 以前は self.json の やりたい・行きたい・欲しい などを読んでいたが、その六つは
+// 三セクションへ移した。ここは横断して見せる側で、正典は各セクションの build_items.py。
+const SRC = [
+  {dir: "../favorites/",  want: "want", past: null},
+  {dir: "../life-hacks/", want: "do",   past: "did"},
+  {dir: "../travel/",     want: "go",   past: "went"},
+];
 const KINDS = {
   now:    [["", ""]],
   future: [["want","欲しいもの"],["do","やりたいこと"],["go","行きたい場所"]],
-  past:   [["did","やったこと"],["went","行ったところ"],["fun","楽しかったこと"]]
+  past:   [["did","やったこと"],["went","行ったところ"]]
 };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // リンクは同じサイト内(http/https)のものだけを出す
@@ -134,41 +140,37 @@ function render(data){
     }).join("");
   }
 }
-// self.json(平らな配列)を、render() が期待する入れ子の形に組み直す。
-// render() 側は一切変えない。date は now の period も兼ねる(移すときに date へ入れている)。
-function adapt(items){
-  const pick = (kind, state) => items.filter(it => it.kind === kind && it.state === state);
-  const out = {
-    now: items.filter(it => it.state === "いま"),
-    future: { want: pick("欲しい", "これから"), do: pick("やりたい", "これから"), go: pick("行きたい", "これから") },
-    past:   { did: pick("やったこと", "これまで"), went: pick("行ったところ", "これまで"), fun: pick("楽しかったこと", "これまで") }
-  };
-  // 対応表に無い組は描かれない。黙って消えないよう、落とした分を console に出す(見た目は変えない)。
-  const shown = new Set([...out.now, ...Object.values(out.future).flat(), ...Object.values(out.past).flat()]);
-  // このページが受け持つ kind。これ以外(柱・問い・原則など)は正当に対象外なので数えない。
-  const MINE = ["欲しい", "やりたい", "行きたい", "やったこと", "行ったところ", "楽しかったこと"];
-  const dropped = items.filter(it => MINE.indexOf(it.kind) !== -1 && !shown.has(it));
-  const seenPairs = Object.create(null);
-  dropped.forEach(it => { const k = it.kind + " / " + (it.state || "(state なし)"); seenPairs[k] = (seenPairs[k] || 0) + 1; });
-  if (dropped.length && typeof console !== "undefined") {
-    console.warn("joy: 受け持ちの項目を表示できていません(" + dropped.length + "件)", seenPairs);
-  }
+// 各セクションの行を、render() が期待する形に直す。元になった記録の相対パスは
+// そのセクションから見た道なので、こちらの場所に合わせて組み直す。
+function conv(it, dir, date){
+  const src = it.source ? new URL(it.source, new URL(dir, location.href)).href : "";
+  return {title: it.title, memo: it.memo || "", date: date, source: src};
+}
+function adapt(loaded){
+  const out = {now: [], future: {want: [], do: [], go: []}, past: {did: [], went: []}};
+  SRC.forEach((s, i) => {
+    const d = loaded[i] || {};
+    (d.wants || []).forEach(w => {
+      // want の一行には、いま進めているものの時期が入っている
+      const row = conv(w, s.dir, w.state === "いま" ? (w.note || "") : "");
+      if (w.state === "いま") out.now.push(row); else out.future[s.want].push(row);
+    });
+    if (s.past) (d.items || []).forEach(it => {
+      out.past[s.past].push(conv(it, s.dir, it.year ? it.year + "年" : ""));
+    });
+  });
+  // これまでは新しい順に
+  for (const k of Object.keys(out.past)) out.past[k].sort((a, b) => b.date.localeCompare(a.date));
   return out;
 }
-
 function fail(msg){
   document.querySelectorAll("[data-group]").forEach(box => {
     box.innerHTML = `<p class="empty">読み込めませんでした（${esc(msg)}）</p>`;
   });
 }
-
-fetch("../self.json", { cache: "no-cache" })
-  .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-  .then(d => {
-    const errors = Self.validateSelf(d.items);
-    if (errors.length) { fail(errors[0]); return; }   // 黙って描かない
-    render(adapt(d.items));
-  })
+Promise.all(SRC.map(s => fetch(s.dir + "items.json", {cache: "no-cache"})
+  .then(r => { if (!r.ok) throw new Error(s.dir + " HTTP " + r.status); return r.json(); })))
+  .then(loaded => render(adapt(loaded)))
   .catch(e => fail(e.message));
 </script>
 </body>
