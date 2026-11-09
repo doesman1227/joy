@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>これから｜まとめノート</title>
-<meta name="description" content="これからやりたいことと、これまで楽しかったこと。欲しいもの、やりたいこと、行きたい場所と、やったこと、行ったところ、楽しかったことを並べていく個人的なノート。">
+<meta name="description" content="いま動いていることと、これから整えたいこと。やっていること、定着していきたいこと、整えたいこと。あわせて、経験・体験／場所・旅行／モノの三つから集めた、欲しいもの・やりたいこと・行ってみたいところの一覧。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
@@ -64,33 +64,49 @@
   <header>
     <p class="kicker">WHAT'S AHEAD</p>
     <h1>これから</h1>
-    <p class="mn-tagline">これからやりたいことと、これまで楽しかったこと。</p>
-    <p class="lead">心地よい暮らしを整えることと、自然や新しい場所で感動すること。その両方を望んでいる。欲しいもの、やりたいこと、行きたい場所、そして、やったこと、行ったところを、<a href="../life-hacks/">経験・体験</a>・<a href="../travel/">場所・旅行</a>・<a href="../favorites/">モノ</a> の三つから集めて、ここに横断で並べています。叶ったものは「これから」から「これまで」へ。</p>
+    <p class="mn-tagline">いま動いていることと、これから整えたいこと。</p>
+    <p class="lead">心地よい暮らしを整えることと、自然や新しい場所で感動すること。その両方を望んでいる。ここは、いま動いていること、習慣にしたいこと、整えたいことを置く場所です。<a href="../experiences/">経験・体験</a>／<a href="../travel/">場所・旅行</a>／<a href="../favorites/">モノ</a> の三つから集めた一覧も、下に並べています。</p>
   </header>
 
   <section class="half now" id="now">
-    <h2>いま<small>NOW</small></h2>
-    <p>やりたいことの中から、いま取り組んでいること。全部を一度にではなく、一つずつ。</p>
+    <h2>やっていること<small>IN MOTION</small></h2>
+    <p>やりたいことの中から、いま手をつけていること。全部を一度にではなく、一つずつ。</p>
     <div data-group="now"></div>
   </section>
 
+  <section class="half keep" id="keep">
+    <h2>定着していきたいこと<small>HABITS</small></h2>
+    <p>続けて、やがて考えずにできるようにしたいこと。</p>
+    <div data-group="keep"></div>
+    <div class="kind how-keep">
+      <h3>続けるためのやり方</h3>
+      <div data-group="howkeep"></div>
+    </div>
+  </section>
+
+  <section class="half tidy" id="tidy">
+    <h2>整えたいこと<small>TO SETTLE</small></h2>
+    <p>手を入れたい場所や仕組み。直したいと思ったまま、まだ手をつけていないこと。</p>
+    <div data-group="tidy"></div>
+  </section>
+
   <section class="half future" id="future">
-    <h2>これから<small>WISHES</small></h2>
-    <p>やってみたいこと、手に入れたいもの、行ってみたい場所。</p>
+    <h2>三つのセクションから<small>WISHES</small></h2>
+    <p>欲しいもの、やりたいこと、行ってみたいところ。それぞれのセクションに書いたものを、ここに集めています。</p>
     <div data-group="future"></div>
   </section>
 
   <section class="half past" id="past">
     <h2>これまで<small>MEMORIES</small></h2>
-    <p>やったこと、行ったところ。気に入ったものは、それぞれのセクションの<a href="../life-hacks/picks.html">やって良かったこと</a>・<a href="../travel/picks.html">また行きたいところ</a>・<a href="../favorites/picks.html">お気に入りのもの</a> にあります。</p>
+    <p>やったこと、行ったところ。もう一度と思ったものは、それぞれのセクションの<a href="../experiences/picks.html">またやりたいこと</a>・<a href="../travel/picks.html">また行きたいところ</a>・<a href="../favorites/picks.html">お気に入りのもの</a> にあります。</p>
     <div data-group="past"></div>
   </section>
 
-  <div class="how"><b>このページの育て方</b> — 思いついたら「これから」に足し、叶ったら日付とひとことを添えて「これまで」へ移す。全部を一度にではなく、一つずつ。読み返して違和感があれば、言葉を直していく。</div>
+  <div class="how"><b>このページの育て方</b> — 手をつけたものは「やっていること」に出てきます（各セクションの「これから」で状態を「いま」にすると入ります）。続けたいことは「定着していきたいこと」に、直したいと思ったことは「整えたいこと」に書きとめておく。全部を一度にではなく、一つずつ。</div>
 
   <section id="notes">
     <h2>この中のノート<small>NOTES</small></h2>
-    <p>叶えたいことのうち、二つは独立したノートになっています。</p>
+    <p>この中には、独立したノートが二つあります。</p>
     <nav class="childnotes">
       <a href="../travel/note.html">
         <span class="idx">01</span>
@@ -111,19 +127,31 @@
     <p><a class="back" href="../">← m-note トップ</a></p>
   </footer>
 </main>
+<script src="../self.js"></script>
 <script>
-// 経験・体験／場所・旅行／モノの三つの items.json を読んで、これから／これまで に並べる。
-// 以前は self.json の やりたい・行きたい・欲しい などを読んでいたが、その六つは
-// 三セクションへ移した。ここは横断して見せる側で、正典は各セクションの build_items.py。
+// 三つの大分類の items.json と、自分のしくみ(self.json)を読んで並べる。
+//   やっていること      … 三セクションの want のうち 状態=いま
+//   定着していきたいこと … self.json のルーチン（続け方は「やり方」として別に出す）
+//   整えたいこと        … self.json の 整えたい
+//   三つのセクションから／これまで … 三セクションの want と items を横断で
 const SRC = [
-  {dir: "../favorites/",  want: "want", past: null},
-  {dir: "../life-hacks/", want: "do",   past: "did"},
-  {dir: "../travel/",     want: "go",   past: "went"},
+  {dir: "../favorites/",   want: "want", past: null},
+  {dir: "../experiences/", want: "do",   past: "did"},
+  {dir: "../travel/",      want: "go",   past: "went"},
 ];
 const KINDS = {
-  now:    [["", ""]],
-  future: [["want","欲しいもの"],["do","やりたいこと"],["go","行きたい場所"]],
-  past:   [["did","やったこと"],["went","行ったところ"]]
+  now:     [["", ""]],
+  keep:    [["", ""]],
+  howkeep: [["", ""]],
+  tidy:    [["", ""]],
+  future:  [["want","欲しいもの"],["do","やりたいこと"],["go","行ってみたいところ"]],
+  past:    [["did","やったこと"],["went","行ったところ"]]
+};
+const EMPTY = {
+  now: "いまは、これから選ぶところ。",
+  keep: "まだありません。続けたいことが見えたら足していく。",
+  howkeep: "まだありません。",
+  tidy: "まだありません。直したいと思ったら書きとめる。",
 };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // リンクは同じサイト内(http/https)のものだけを出す
@@ -131,11 +159,12 @@ const safeUrl = u => { if (!u) return null; try { const url = new URL(String(u ?
 function render(data){
   for (const [group, kinds] of Object.entries(KINDS)) {
     const box = document.querySelector(`[data-group="${group}"]`);
+    if (!box) continue;
     box.innerHTML = kinds.map(([key, label]) => {
       const list = (key === "" ? data[group] : (data[group] && data[group][key])) || [];
       const items = list.length
         ? `<ul class="items">${list.map(it => `<li class="item"><b>${(it.date || it.period) ? `<span class="date">${esc(it.date || it.period)}</span>` : ""}${esc(it.title)}</b>${it.memo ? `<p>${esc(it.memo)}</p>` : ""}${safeUrl(it.source) ? `<a class="src" href="${esc(safeUrl(it.source))}">元になった記録 →</a>` : ""}</li>`).join("")}</ul>`
-        : `<p class="empty">${group === "now" ? "いまは、これから選ぶところ。" : "まだありません。思いついたら足していく。"}</p>`;
+        : `<p class="empty">${EMPTY[group] || "まだありません。思いついたら足していく。"}</p>`;
       return label ? `<div class="kind"><h3>${label}</h3>${items}</div>` : `<div class="kind">${items}</div>`;
     }).join("");
   }
@@ -146,8 +175,9 @@ function conv(it, dir, date){
   const src = it.source ? new URL(it.source, new URL(dir, location.href)).href : "";
   return {title: it.title, memo: it.memo || "", date: date, source: src};
 }
-function adapt(loaded){
-  const out = {now: [], future: {want: [], do: [], go: []}, past: {did: [], went: []}};
+function adapt(loaded, self){
+  const out = {now: [], keep: [], howkeep: [], tidy: [],
+               future: {want: [], do: [], go: []}, past: {did: [], went: []}};
   SRC.forEach((s, i) => {
     const d = loaded[i] || {};
     (d.wants || []).forEach(w => {
@@ -159,6 +189,11 @@ function adapt(loaded){
       out.past[s.past].push(conv(it, s.dir, it.year ? it.year + "年" : ""));
     });
   });
+  const byKind = k => (self || []).filter(it => it.kind === k)
+    .map(it => ({title: it.title, memo: it.memo || "", date: it.date || "", source: it.source || ""}));
+  out.keep = byKind("ルーチン");
+  out.howkeep = byKind("続け方");
+  out.tidy = byKind("整えたい");
   // これまでは新しい順に
   for (const k of Object.keys(out.past)) out.past[k].sort((a, b) => b.date.localeCompare(a.date));
   return out;
@@ -168,9 +203,18 @@ function fail(msg){
     box.innerHTML = `<p class="empty">読み込めませんでした（${esc(msg)}）</p>`;
   });
 }
-Promise.all(SRC.map(s => fetch(s.dir + "items.json", {cache: "no-cache"})
-  .then(r => { if (!r.ok) throw new Error(s.dir + " HTTP " + r.status); return r.json(); })))
-  .then(loaded => render(adapt(loaded)))
+Promise.all([
+  ...SRC.map(s => fetch(s.dir + "items.json", {cache: "no-cache"})
+    .then(r => { if (!r.ok) throw new Error(s.dir + " HTTP " + r.status); return r.json(); })),
+  fetch("../self.json", {cache: "no-cache"})
+    .then(r => { if (!r.ok) throw new Error("self.json HTTP " + r.status); return r.json(); }),
+])
+  .then(all => {
+    const self = all[all.length - 1].items;
+    const errors = Self.validateSelf(self);
+    if (errors.length) { fail(errors[0]); return; }   // 黙って描かない
+    render(adapt(all.slice(0, SRC.length), self));
+  })
   .catch(e => fail(e.message));
 </script>
 </body>
